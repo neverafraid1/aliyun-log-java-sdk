@@ -7002,7 +7002,7 @@ public class Client implements LogService {
 		ResponseMessage response = sendJson(request);
 		String requestId = GetRequestId(response.getHeaders());
 		JSONObject responseBody = parseResponseBody(response, requestId);
-		long affectedRows = responseBody.getLongValue("affected_rows");
+		long affectedRows = responseBody.getLongValue("affectedRows");
 
 		return new DeleteLogsV2Response(response.getHeaders(), affectedRows);
 	}
@@ -7016,7 +7016,7 @@ public class Client implements LogService {
 		ResponseMessage response = sendJson(request);
 		String requestId = GetRequestId(response.getHeaders());
 		JSONObject responseBody = parseResponseBody(response, requestId);
-		long affectedRows = responseBody.getLongValue("affected_rows");
+		long affectedRows = responseBody.getLongValue("affectedRows");
 
 		return new UpdateLogsResponse(response.getHeaders(), affectedRows);
 	}

@@ -94,7 +94,7 @@ public class LogsMutationRequestTest {
 
     @Test
     public void testDeleteLogsV2ClientSendsJsonAndParsesAffectedRows() throws LogException {
-        CapturingClient client = new CapturingClient("{\"affected_rows\":3000000000}");
+        CapturingClient client = new CapturingClient("{\"affectedRows\":3000000000}");
         DeleteLogsV2Response response = client.deleteLogsV2(
                 new DeleteLogsV2Request("project", "logstore", 100, 200, "level:error", "row-id-1"));
 
@@ -111,7 +111,7 @@ public class LogsMutationRequestTest {
 
     @Test
     public void testUpdateLogsClientSendsJsonAndParsesAffectedRows() throws LogException {
-        CapturingClient client = new CapturingClient("{\"affected_rows\":5000000000}");
+        CapturingClient client = new CapturingClient("{\"affectedRows\":5000000000}");
         UpdateLogsResponse response = client.updateLogs(
                 new UpdateLogsRequest("project", "logstore", 100, 200, "level:error",
                         "row-id-1", "partial", "{\"level\":\"warn\"}"));
