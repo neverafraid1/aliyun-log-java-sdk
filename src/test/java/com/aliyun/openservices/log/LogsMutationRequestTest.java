@@ -46,7 +46,7 @@ public class LogsMutationRequestTest {
     @Test
     public void testUpdateLogsRequest() {
         UpdateLogsRequest request = new UpdateLogsRequest(
-                "project", "logstore", 100, 200, "level:error", "row-id-1", "merge", "{\"level\":\"warn\"}");
+                "project", "logstore", 100, 200, "level:error", "row-id-1", "partial", "{\"level\":\"warn\"}");
 
         assertEquals(HttpMethod.POST, request.getMethod());
         assertEquals("/logstores/logstore/updatelogs", request.getUri());
@@ -56,7 +56,7 @@ public class LogsMutationRequestTest {
         assertEquals(200, body.getIntValue("to"));
         assertEquals("level:error", body.getString("query"));
         assertEquals("row-id-1", body.getString("rowId"));
-        assertEquals("merge", body.getString("updateMode"));
+        assertEquals("partial", body.getString("updateMode"));
         assertEquals("{\"level\":\"warn\"}", body.getString("data"));
 
         request.setUpdateMode(null);
@@ -114,7 +114,7 @@ public class LogsMutationRequestTest {
         CapturingClient client = new CapturingClient("{\"affected_rows\":5000000000}");
         UpdateLogsResponse response = client.updateLogs(
                 new UpdateLogsRequest("project", "logstore", 100, 200, "level:error",
-                        "row-id-1", "merge", "{\"level\":\"warn\"}"));
+                        "row-id-1", "partial", "{\"level\":\"warn\"}"));
 
         assertEquals("/logstores/logstore/updatelogs", client.resourceUri);
         assertEquals(HttpMethod.POST, client.method);
@@ -123,7 +123,7 @@ public class LogsMutationRequestTest {
         assertEquals(5000000000L, response.getAffectedRows());
 
         JSONObject body = JSONObject.parseObject(new String(client.body, StandardCharsets.UTF_8));
-        assertEquals("merge", body.getString("updateMode"));
+        assertEquals("partial", body.getString("updateMode"));
         assertEquals("{\"level\":\"warn\"}", body.getString("data"));
     }
 
